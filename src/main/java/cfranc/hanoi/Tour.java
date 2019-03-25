@@ -1,25 +1,26 @@
 package cfranc.hanoi;
 
 import java.util.ArrayDeque;
+import java.util.Collections;
 import java.util.Queue;
 
 public class Tour implements IPile<Disque>{
 
 	int hauteurMax = 3;
 	
-	Queue<Disque> disques=new ArrayDeque<>();
+	Queue<Disque> disques= Collections.asLifoQueue(new ArrayDeque<Disque>());
 	
 	@Override
 	public boolean empiler(Disque d) {
         boolean res=false;
         if(disques.isEmpty()){
-            disques.offer(d);
+            disques.add(d);
             res=true;
         }
         else{
-            if( (disques.element().d>d.d) && (taille()<hauteurMax) ){
+            if( (disques.peek().d>d.d) && (taille()<hauteurMax) ){
                 res=true;
-                disques.offer(d);
+                disques.add(d);
             }
             else{
                 res=false;

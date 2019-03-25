@@ -7,7 +7,15 @@ public class Hanoi {
 	Tour tourDest;
 
 	public Hanoi(int n){
-		// TODO ...
+		tourInit = new Tour(n);
+		tourInter = new Tour(n);
+		tourDest = new Tour(n);
+		for (int i = n; i > 1; i--) {
+		Disque disquecourant= new Disque(i);
+		tourInit.empiler(disquecourant);
+		}
+		System.out.println(tourInit.taille() + " TAILLE");
+		
 	}
 
 	
@@ -24,19 +32,31 @@ public class Hanoi {
 	}
 	
 	public void bougerSommet(Tour from, Tour to) {
-		tourInit = new Tour();
-		tourInter = new Tour();
-		tourDest = new Tour();
-		// TODO ...
+	
+	Disque d = from.depiler();
+
+	if (d != null) { // Pas bon.
+	to.empiler(d);
+
+	}
 	}
 
 	public void deplacer(int nbDisque, Tour from, Tour to, Tour by){
-		if (nbDisque > 0) {
-			deplacer(nbDisque-1, from, to, by);
+
+		if (nbDisque == 1) {
 			bougerSommet(from, to);
-			deplacer(nbDisque-1, by, to, from);
 		}
+	
+		if (nbDisque > 1) {
+			deplacer(nbDisque-1, from, by, to);
+			bougerSommet(from, to);
+			deplacer(nbDisque-1, by, from, to);
+		
+		}
+
+		
 	}
+	
 
 	public void jouer() {
 		deplacer(tourInit.taille(), tourInit, tourDest, tourInter);
@@ -44,21 +64,15 @@ public class Hanoi {
 
 	public static void main(String[] args) {
 		// Compléter la classe Hanoi pour résoudre le jeux avec 3 disques :
-		Hanoi game = new Hanoi();
+		Hanoi game = new Hanoi(10);
 		System.out.println(game.tourInit.estVide());
 		System.out.println(game.tourDest.estVide());
+		System.out.println(game.tourInter.estVide());
+		System.out.println(game.tourInit.taille());
 		game.jouer();
 		System.out.println(game.tourInit.estVide());
-		System.out.println(game.tourDest.estVide());
-		
-		// Compléter la classe Hanoi pour résoudre le jeux avec n disques :
-		int n =100;
-		Hanoi gameN = new Hanoi(n);
-		System.out.println(gameN.tourInit.estVide());
-		System.out.println(gameN.tourDest.estVide());
-		gameN.jouer();
-		System.out.println(gameN.tourInit.estVide());
-		System.out.println(gameN.tourDest.estVide());
+		System.out.println(game.tourInter.estVide() + " " + game.tourInter.taille());
+		System.out.println(game.tourDest.estVide() + " " + game.tourDest.disques.size());
 		
 	}
 
