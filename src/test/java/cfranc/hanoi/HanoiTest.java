@@ -23,7 +23,7 @@ public class HanoiTest {
 	game.jouer();
 	assertTrue(game.tourInit.estVide());
 	assertTrue(game.tourInter.estVide());
-	assertFalse(game.tourDest.estVide());
+	assertTrue(game.tourDest.estPleine());
 	}
 	}
 }

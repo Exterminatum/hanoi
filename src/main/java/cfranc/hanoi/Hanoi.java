@@ -10,7 +10,7 @@ public class Hanoi {
 		tourInit = new Tour(n);
 		tourInter = new Tour(n);
 		tourDest = new Tour(n);
-		for (int i = n; i > 1; i--) {
+		for (int i = n; i > 0; i--) {
 		Disque disquecourant= new Disque(i);
 		tourInit.empiler(disquecourant);
 		}
@@ -32,13 +32,12 @@ public class Hanoi {
 	}
 	
 	public void bougerSommet(Tour from, Tour to) {
-	
+	System.out.println("Taille de pile :  "+ from.taille());
 	Disque d = from.depiler();
-
-	if (d != null) { // Pas bon.
+	
 	to.empiler(d);
 
-	}
+	
 	}
 
 	public void deplacer(int nbDisque, Tour from, Tour to, Tour by){
@@ -50,7 +49,7 @@ public class Hanoi {
 		if (nbDisque > 1) {
 			deplacer(nbDisque-1, from, by, to);
 			bougerSommet(from, to);
-			deplacer(nbDisque-1, by, from, to);
+			deplacer(nbDisque-1, by, to, from);
 		
 		}
 
